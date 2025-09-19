@@ -65,5 +65,19 @@ import {
         res.send(buf);
       }
     }
+
+    // @Post('remove/url')
+    // async removeBgFromUrl(@Body('imageUrl') imageUrl: string) {
+    //   if (!imageUrl) throw new BadRequestException('imageUrl is required');
+    //   const processedUrl = await this.bg.removeAndUpload(imageUrl);
+    //   return { processedUrl };
+    // }
+
+    @Post('remove/s3/imgName')
+    async removeBgFromS3ImgName(@Body('imgName') imgName: string) {
+      if (!imgName) throw new BadRequestException('imgName is required');
+      const processedUrl = await this.bg.removeAndUploadFromS3ImgName(imgName);
+      return processedUrl;
+    }
   }
   
