@@ -6,7 +6,11 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  getHello() {
+    return {
+      message: 'Connected to Remove Background API',
+      timezone: process.env.TZ,
+      serverTime: new Date().toLocaleString(),
+    }
   }
 }
