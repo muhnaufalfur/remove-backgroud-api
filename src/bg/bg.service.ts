@@ -13,9 +13,8 @@ export class BgService {
   private readonly uploadService: UploadService = new UploadService();
   private lambdaUploadUrl = process.env.LAMBDA_UPLOAD_URL!;
   private readonly lambdaDownloadUrl = process.env.LAMBDA_API_URL! + process.env.LAMBDA_DOWNLOAD_URL!;
-  private rembg = new (Rembg as any)({
-      logging: false,
-      modelPath: path.resolve(__dirname, '../../models/u2net.onnx'),
+  private rembg = new Rembg({
+    logging: false,
   });
 
 
