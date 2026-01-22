@@ -12,5 +12,10 @@ RUN npm install
 
 COPY . .
 
+
+# 🔴 IMPORTANT: copy ONNX model to expected runtime location
+RUN mkdir -p /root/.u2net \
+ && cp -r /app/models/* /root/.u2net/
+
 EXPOSE 3080
 CMD ["npm", "start"]
