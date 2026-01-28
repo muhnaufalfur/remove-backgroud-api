@@ -2,20 +2,27 @@ FROM node:20-bookworm
 
 WORKDIR /app
 
-# Allow SSL during install (Windows dev only)
-ENV NODE_TLS_REJECT_UNAUTHORIZED=0
+# System deps
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    ca-certificates \
+ && rm -rf /var/lib/apt/lists/*
 
+# Install gdown
+RUN pip3 install --no-cache-dir gdown
+
+# Install Node deps
 COPY package*.json ./
-
-# Install deps (allow sharp binaries, still safe for onnx)
 RUN npm install
 
+# Copy source
 COPY . .
 
-
-# 🔴 IMPORTANT: copy ONNX model to expected runtime location
+# Download ONNX model
 RUN mkdir -p /root/.u2net \
- && cp -r /app/models/* /root/.u2net/
+ && gdown https://drive.google.com/uc?id=1OjfstIZRm-3YNw6N6mtFsij6x9GgljQB \
+    -O /root/.u2net/u2net.onnx
 
 EXPOSE 3080
 CMD ["npm", "start"]

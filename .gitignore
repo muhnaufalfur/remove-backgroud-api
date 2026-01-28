@@ -57,3 +57,4 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # Exclude ONNX model file
 /models/u2net.onnx
+/docker/u2net.onnx
